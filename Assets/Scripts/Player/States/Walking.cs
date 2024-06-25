@@ -29,11 +29,7 @@ public class Walking : State
             return;
         }
 
-        Vector3 walkingVector = new Vector3(controller.movementVector.x, 0, controller.movementVector.y);
-        walkingVector *= controller.movementSpeed * Time.deltaTime;
 
-        // Apply input force
-        controller.transform.Translate(walkingVector);
     }
     public override void LateUpdate()
     {
@@ -42,6 +38,18 @@ public class Walking : State
     public override void FixedUpdate()
     {
         base.FixedUpdate();
+
+        //  Create Vector
+        Vector3 walkingVector = new Vector3(controller.movementVector.x, 0, controller.movementVector.y);
+        walkingVector = controller.GetForward() * walkingVector;
+        walkingVector *= controller.movementSpeed;
+        
+        
+        // Apply input force
+        controller.thisRigidbody.AddForce(walkingVector, ForceMode.Force);
+
+        // Rotate character
+        controller.RoteteBodyToFaceInput();
     }
 
     

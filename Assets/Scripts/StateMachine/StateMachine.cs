@@ -30,4 +30,6 @@ public class StateMachine
         currentStateName = newState?.name;
         newState?.Enter();
     }
+
+
 }
