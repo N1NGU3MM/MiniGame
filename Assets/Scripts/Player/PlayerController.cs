@@ -16,11 +16,16 @@ public class PlayerController : MonoBehaviour
     // internal Properties
     [HideInInspector] public Vector2 movementVector;
     [HideInInspector] public Rigidbody thisRigidbody;
-    // Start is called before the first frame update
+
+    [HideInInspector] public Animator thisAnimator;
+
     void Awake()
     {
-        thisRigidbody = GetComponent<Rigidbody> ();
+        thisRigidbody = GetComponent<Rigidbody>();
+        thisAnimator = GetComponent<Animator>();
     }
+    // Start is called before the first frame update
+
     void Start()
     {
         // stateMachine and it's states
@@ -42,6 +47,11 @@ public class PlayerController : MonoBehaviour
         float inputX = isRight ? 1 : isLeft ? -1 : 0;
         float inputY = isUp ? 1 : isDown ? -1 : 0;
         movementVector = new Vector2(inputX, inputY);
+
+        // Pass the velocity for Animator
+        float velocity = thisRigidbody.velocity.magnitude;
+        float velocityRate = velocity / movementSpeed;
+        thisAnimator.SetFloat("fVelocity", velocityRate);
 
         stateMachine.Update();
 

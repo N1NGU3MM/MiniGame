@@ -11,7 +11,8 @@ public class Walking : State
     public override void Enter()
     {
         base.Enter();
-        ;
+     
+
     }
     public override void Exit()
     {
